@@ -73,6 +73,7 @@ type PlayerStatsResp struct {
 	Fide          int               `json:"fide"`
 }
 
+// Returns general player stat information based on a game Section. ie (blitz, bullet, ...) URL = https://api.chess.com/pub/player/{username}/stats
 func PlayerStats(username string) (*PlayerStatsResp, error) {
 	resp := &PlayerStatsResp{}
 	err := request("https://api.chess.com/pub/player/"+username+"/stats", resp)

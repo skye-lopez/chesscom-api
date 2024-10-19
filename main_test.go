@@ -36,3 +36,12 @@ func TestPlayerStats(t *testing.T) {
 
 	t.Log(got)
 }
+
+func TestPlayerOnline(t *testing.T) {
+	got, err := PlayerOnline("erik")
+	if err != nil {
+		t.Errorf("PlayerProfile error occured; %e", err)
+	}
+
+	t.Log(got)
+}
