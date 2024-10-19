@@ -70,3 +70,14 @@ func TestPlayerGamesArchives(t *testing.T) {
 		t.Errorf("PlayerGamesArchives error occured; no games where returned for erik")
 	}
 }
+
+func TestPlayerGamesArchivesComplete(t *testing.T) {
+	got, err := PlayerGamesArchivesComplete("erik", "2009", "10")
+	if err != nil {
+		t.Errorf("PlayerGamesArchives error occured; %e", err)
+	}
+
+	if len(got.Games) <= 0 {
+		t.Errorf("PlayerGamesArchives error occured; no games where returned for erik")
+	}
+}
