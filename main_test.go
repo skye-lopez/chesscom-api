@@ -27,3 +27,12 @@ func TestTitledPlayers(t *testing.T) {
 
 	t.Log(got)
 }
+
+func TestPlayerStats(t *testing.T) {
+	got, err := PlayerStats("erik")
+	if err != nil {
+		t.Errorf("PlayerStats error occured; %e", err)
+	}
+
+	t.Log(got)
+}
