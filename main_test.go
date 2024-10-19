@@ -103,3 +103,14 @@ func TestPlayerMatches(t *testing.T) {
 		t.Errorf("PlayerMatches error occured; no matches were returned for erik")
 	}
 }
+
+func TestPlayerTournaments(t *testing.T) {
+	got, err := PlayerTournaments("erik")
+	if err != nil {
+		t.Errorf("PlayerTournaments error occured; %e", err)
+	}
+
+	if len(got.Finished) <= 0 {
+		t.Errorf("PlayerTournaments error occured; no tournaments were returned for erik")
+	}
+}
