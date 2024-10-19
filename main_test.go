@@ -40,7 +40,7 @@ func TestPlayerStats(t *testing.T) {
 func TestPlayerOnline(t *testing.T) {
 	got, err := PlayerOnline("erik")
 	if err != nil {
-		t.Errorf("PlayerProfile error occured; %e", err)
+		t.Errorf("PlayerOnline error occured; %e", err)
 	}
 
 	t.Log(got)
@@ -49,11 +49,24 @@ func TestPlayerOnline(t *testing.T) {
 func TestPlayerGames(t *testing.T) {
 	got, err := PlayerGames("erik")
 	if err != nil {
-		t.Errorf("PlayerProfile error occured; %e", err)
+		t.Errorf("PlayerGames error occured; %e", err)
 	}
 
 	if len(got.Games) <= 0 {
 		t.Errorf("PlayerGames error occured; no games where returned for erik")
+	}
+
+	t.Log(got)
+}
+
+func TestPlayerGamesToMove(t *testing.T) {
+	got, err := PlayerGamesToMove("erik")
+	if err != nil {
+		t.Errorf("PlayerGamesToMove error occured; %e", err)
+	}
+
+	if len(got.Games) <= 0 {
+		t.Errorf("PlayerGamesToMove error occured; no games where returned for erik")
 	}
 
 	t.Log(got)
