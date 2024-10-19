@@ -82,14 +82,14 @@ func TestPlayerGamesArchivesComplete(t *testing.T) {
 	}
 }
 
-func TestPlayersClubs(t *testing.T) {
-	got, err := PlayersClubs("erik")
+func TestPlayerClubs(t *testing.T) {
+	got, err := PlayerClubs("erik")
 	if err != nil {
-		t.Errorf("PlayersClubs error occured; %e", err)
+		t.Errorf("PlayerClubs error occured; %e", err)
 	}
 
 	if len(got.Clubs) <= 0 {
-		t.Errorf("PlayersClubs error occured; no clubs were returned for erik")
+		t.Errorf("PlayerClubs error occured; no clubs were returned for erik")
 	}
 }
 

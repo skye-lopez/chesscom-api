@@ -1,6 +1,6 @@
 package chesscom
 
-type PlayersClubsResp struct {
+type PlayerClubsResp struct {
 	Clubs []PlayerClub `json:"clubs"`
 }
 
@@ -13,8 +13,8 @@ type PlayerClub struct {
 	Joined       int    `json:"joined"`
 }
 
-func PlayersClubs(username string) (*PlayersClubsResp, error) {
-	resp := &PlayersClubsResp{}
+func PlayerClubs(username string) (*PlayerClubsResp, error) {
+	resp := &PlayerClubsResp{}
 	err := request("https://api.chess.com/pub/player/"+username+"/clubs", resp)
 	return resp, err
 }
