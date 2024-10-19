@@ -20,7 +20,7 @@ func TestTitledPlayers(t *testing.T) {
 	}
 
 	if len(got.Players) == 0 {
-		t.Errorf("TitledPlayers error occured; no players where returned in the GM section")
+		t.Errorf("TitledPlayers error occured; no players were returned in the GM section")
 	}
 }
 
@@ -45,7 +45,7 @@ func TestPlayerGames(t *testing.T) {
 	}
 
 	if len(got.Games) <= 0 {
-		t.Errorf("PlayerGames error occured; no games where returned for erik")
+		t.Errorf("PlayerGames error occured; no games were returned for erik")
 	}
 }
 
@@ -56,7 +56,7 @@ func TestPlayerGamesToMove(t *testing.T) {
 	}
 
 	if len(got.Games) <= 0 {
-		t.Errorf("PlayerGamesToMove error occured; no games where returned for erik")
+		t.Errorf("PlayerGamesToMove error occured; no games were returned for erik")
 	}
 }
 
@@ -67,17 +67,28 @@ func TestPlayerGamesArchives(t *testing.T) {
 	}
 
 	if len(got.Archives) <= 0 {
-		t.Errorf("PlayerGamesArchives error occured; no games where returned for erik")
+		t.Errorf("PlayerGamesArchives error occured; no games were returned for erik")
 	}
 }
 
 func TestPlayerGamesArchivesComplete(t *testing.T) {
 	got, err := PlayerGamesArchivesComplete("erik", "2009", "10")
 	if err != nil {
-		t.Errorf("PlayerGamesArchives error occured; %e", err)
+		t.Errorf("PlayerGamesArchivesComplete error occured; %e", err)
 	}
 
 	if len(got.Games) <= 0 {
-		t.Errorf("PlayerGamesArchives error occured; no games where returned for erik")
+		t.Errorf("PlayerGamesArchivesComplete error occured; no games were returned for erik")
+	}
+}
+
+func TestPlayersClubs(t *testing.T) {
+	got, err := PlayersClubs("erik")
+	if err != nil {
+		t.Errorf("PlayersClubs error occured; %e", err)
+	}
+
+	if len(got.Clubs) <= 0 {
+		t.Errorf("PlayersClubs error occured; no clubs were returned for erik")
 	}
 }
