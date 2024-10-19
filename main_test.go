@@ -14,3 +14,16 @@ func TestPlayerProfile(t *testing.T) {
 
 	t.Log(got)
 }
+
+func TestTitledPlayers(t *testing.T) {
+	got, err := TitledPlayers("GM")
+	if err != nil {
+		t.Errorf("TitledPlayers error occured; %e", err)
+	}
+
+	if len(got.Players) == 0 {
+		t.Errorf("TitledPlayers error occured; no players where returned in the GM section")
+	}
+
+	t.Log(got)
+}

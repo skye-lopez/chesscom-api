@@ -2,8 +2,20 @@ package chesscom
 
 import (
 	"encoding/json"
+	"errors"
+	"fmt"
 	"net/http"
 )
+
+func request(url string, target interface{}) error {
+	resp, err := http.Get(url)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	return json.NewDecoder(resp.Body).Decode(&target)
+}
 
 type PlayerProfileResp struct {
 	Id         string `json:"id"`
@@ -24,16 +36,41 @@ type PlayerProfileResp struct {
 	IsStreamer bool   `json:"is_streamer"`
 }
 
-func PlayerProfile(username string) (PlayerProfileResp, error) {
-	baseUrl := "https://api.chess.com/pub/player/"
-	resp, err := http.Get(baseUrl + username)
-	if err != nil {
-		return PlayerProfileResp{}, err
+// Returns a players general player information. See PlayerProfileResp. URL = https://api.chess.com/pub/player/{username}
+func PlayerProfile(username string) (*PlayerProfileResp, error) {
+	resp := &PlayerProfileResp{}
+	err := request("https://api.chess.com/pub/player/"+username, resp)
+	return resp, err
+}
+
+type TitledPlayersResp struct {
+	Players []string `json:"players"`
+}
+
+// Returns a list of all titled players usernames. Valid abbrev's = [GM, WGM, IM, WIM, FM, WFM, NM, WNM, CM, WCM]. URL = https://api.chess.com/pub/titled/{title-abbrev}
+func TitledPlayers(abbrev string) (*TitledPlayersResp, error) {
+	validAbbrevs := map[string]bool{
+		"GM":  true,
+		"WGM": true,
+		"IM":  true,
+		"WIM": true,
+		"FM":  true,
+		"WFM": true,
+		"NM":  true,
+		"WNM": true,
+		"CM":  true,
+		"WCM": true,
 	}
-	defer resp.Body.Close()
 
-	parsedResponse := PlayerProfileResp{}
-	err = json.NewDecoder(resp.Body).Decode(&parsedResponse)
+	resp := &TitledPlayersResp{}
 
-	return parsedResponse, err
+	_, ok := validAbbrevs[abbrev]
+	if !ok {
+		errMsg := fmt.Sprintf("Provided abbrev: %s is invalid. Valid options are: [GM, WGM, IM, WIM, FM, WFM, NM, WNM, CM, WCM]", abbrev)
+		return resp, errors.New(errMsg)
+	}
+
+	err := request("https://api.chess.com/pub/titled/"+abbrev, resp)
+
+	return resp, err
 }
