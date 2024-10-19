@@ -45,3 +45,16 @@ func TestPlayerOnline(t *testing.T) {
 
 	t.Log(got)
 }
+
+func TestPlayerGames(t *testing.T) {
+	got, err := PlayerGames("erik")
+	if err != nil {
+		t.Errorf("PlayerProfile error occured; %e", err)
+	}
+
+	if len(got.Games) <= 0 {
+		t.Errorf("PlayerGames error occured; no games where returned for erik")
+	}
+
+	t.Log(got)
+}
